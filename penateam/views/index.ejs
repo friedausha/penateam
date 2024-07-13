@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reddit Scraper</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>Reddit Scraper</h1>
+<form action="/scrape" method="POST">
+    <label for="inputType">Scrape Type:</label>
+    <select id="inputType" name="inputType" required>
+        <option value="subreddit">Subreddit Posts</option>
+        <option value="user">User Activity</option>
+    </select>
+
+    <div id="subredditInput" class="hidden">
+        <label for="subreddit">Subreddit:</label>
+        <input type="text" id="subreddit" name="subreddit">
+    </div>
+
+    <div id="userInput" class="hidden">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+    </div>
+
+    <button type="submit">Scrape</button>
+</form>
+
+<script>
+    document.getElementById('inputType').addEventListener('change', function() {
+        const subredditInput = document.getElementById('subredditInput');
+        const userInput = document.getElementById('userInput');
+
+        subredditInput.classList.add('hidden');
+        userInput.classList.add('hidden');
+
+        document.getElementById('subreddit').removeAttribute('required');
+        document.getElementById('username').removeAttribute('required');
+
+        if (this.value === 'subreddit') {
+            subredditInput.classList.remove('hidden');
+            document.getElementById('subreddit').setAttribute('required', 'required');
+        } else if (this.value === 'user') {
+            userInput.classList.remove('hidden');
+            document.getElementById('username').setAttribute('required', 'required');
+        }
+    });
+
+    // Trigger change event on page load to set initial visibility
+    document.getElementById('inputType').dispatchEvent(new Event('change'));
+</script>
+</body>
+</html>

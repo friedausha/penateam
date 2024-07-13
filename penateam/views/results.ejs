@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Scraped Results</title>
+</head>
+<body>
+<h1>Scraped Results</h1>
+<% if (results && results.length > 0) { %>
+    <ul>
+        <% results.forEach(result => { %>
+            <li>
+                <% if (inputType === 'subreddit' || inputType === 'user') { %>
+                    <strong>Title:</strong> <a href="<%= result.postUrl %>" target="_blank"><%= result.title %></a><br>
+                    <strong>Author:</strong> <%= result.author %><br>
+                <% } %>
+                <% if (inputType === 'post') { %>
+                    <strong>Author:</strong> <%= result.author %><br>
+                    <strong>Comment:</strong> <%= result.commentText %><br>
+                <% } %>
+                <strong>Timestamp:</strong> <%= result.timestamp %><br>
+                <% if (result.score) { %><strong>Score:</strong> <%= result.score %><br><% } %>
+            </li>
+        <% }); %>
+    </ul>
+<% } else { %>
+    <p>No results found.</p>
+<% } %>
+<a href="/">Go back</a>
+</body>
+</html>
